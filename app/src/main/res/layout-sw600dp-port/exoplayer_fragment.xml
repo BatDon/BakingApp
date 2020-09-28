@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/default_margin"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="Fragments.ExoplayerFragment">
+
+<!--    <TextView-->
+<!--        android:id="@+id/step_title"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:text="@string/recipe_step"-->
+<!--        android:textAlignment="center"-->
+<!--        style="@style/TextViewStyleBolded"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/exoplayer_video_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:default_artwork="@drawable/cooking"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:use_artwork="true"/>
+<!--    <com.google.android.exoplayer2.ui.SimpleExoPlayerView-->
+<!--        android:id="@+id/exoplayer_video_view"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:default_artwork="@drawable/cooking"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/step_title"-->
+<!--        app:use_artwork="true">-->
+
+<!--    </com.google.android.exoplayer2.ui.SimpleExoPlayerView>-->
+<!--            android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"-->
+<!--            app:layout_constraintDimensionRatio="4:3"-->
+
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/step_description_tv"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:ems="10"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/exoplayer_video_view"-->
+<!--        tools:text="Description" />-->
+
+    <ImageView
+        android:id="@+id/image_placeholder"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/cooking_video_either_loading_or_does_not_exist"
+        android:src="@drawable/cooking"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/exoplayer_video_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

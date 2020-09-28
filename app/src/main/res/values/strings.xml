@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">BakingApp</string>
+    <string name="problem_retrieving_data">Unable to retrieve data</string>
+
+    <!--    RecipeNameGridListFragment-->
+    <string name="implement_OnRecipeTitleClickListener_Error">MainActivity needs to implement OnRecipeTitleClickListener</string>
+    <string name="recipesAsJsonString">RECIPE_AS_JSON_STRING</string>
+    <string name="ingredients_title">Ingredients</string>
+    <string name="steps_title">Instructions</string>
+
+<!--    RecipeIngredientSteps-->
+    <string name="implement_StepLinearAdapter_OnRecipeStepListener_ERROR">Recipe Ingredients Steps needs to implement StepLinearAdapter.OnRecipeStepListener"></string>
+
+    <!--    exoplayer fragment-->
+    <string name="cooking_video_either_loading_or_does_not_exist">Cooking video either loading or does not exist</string>
+    <string name="recipe_step">Recipe Step</string>
+    <string name="place_holder_ingredients">Ingredients will be shown here</string>
+    <string name="awaiting_ingredients">Select a dish to prepare to load the ingredients</string>
+    <string name="place_holder_title_ingredients">Recipe Title</string>
+    <string name="baking_widget_service">BakingWidgetService</string>
+    <string name="shortdescription">shortDescription</string>
+    <string name="description">description</string>
+    <string name="previous_step">Previous Step</string>
+    <string name="next_step">Next Step</string>
+</resources>
