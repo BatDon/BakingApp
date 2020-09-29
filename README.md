@@ -9,12 +9,12 @@ contains an Exoplayer fragment, which shows the step. Next and Prevous buttons c
 screen sizes.
 
 ## Libraries
-Exoplayer
-Picasso
-Timber
-HTTP Logging Interceptor
-ViewModel
-Lifecycle
-Gson
-Material Design
-Espresso libraries
+- Exoplayer
+- Picasso
+- Timber
+- HTTP Logging Interceptor
+- ViewModel
+- Lifecycle
+- Gson
+- Material Design
+- Espresso libraries
