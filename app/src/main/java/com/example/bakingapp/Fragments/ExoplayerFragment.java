@@ -88,20 +88,9 @@ public class ExoplayerFragment extends Fragment {
     public ExoplayerFragment() {
     }
 
-    //PreviousButtonClicked previousButtonClickedCallback;
-
-//    public void setOnPreviousButtonClickedListener(PreviousButtonClicked previousButtonClickedCallback){
-//        this.previousButtonClickedCallback=previousButtonClickedCallback;
-//    }
-
-//    public interface PreviousButtonClicked{
-//        public void previousButtonClicked(int currentStep);
-//    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setRetainInstance(true);
 
         ExoplayerViewModelFactory exoplayerViewModelFactory=new ExoplayerViewModelFactory(getActivity().getApplication());
         exoplayerViewModel = ViewModelProviders.of(getActivity(), exoplayerViewModelFactory).get(ExoplayerViewModel.class);
@@ -134,6 +123,7 @@ public class ExoplayerFragment extends Fragment {
             JSONUtility jsonUtility = JSONUtility.createJSONUtilityInstance();
             stepPojo = jsonUtility.getStep(recipePosition, stepPosition);
 
+            //Checking for empty descriptions
             if(stepPojo.getShortDescription().isEmpty()){
                 shortDescriptionString="";
             }
@@ -150,13 +140,11 @@ public class ExoplayerFragment extends Fragment {
 
             stepVideoUri = Uri.parse(stepPojo.getVideoURL());
 
-//            mStep = savedInstanceState.getParcelable(STEP_SINGLE);
             stepPlayWhenReady = savedInstanceState.getBoolean(STEP_PLAY_WHEN_READY);
             exoPlayerCurrentPositionIndex = savedInstanceState.getLong(STEP_CURRENT_VIDEO_POSITION);
             exoPlayerWindowIndex = savedInstanceState.getInt(STEP_PLAY_WINDOW_INDEX);
-//            mVideoUri = Uri.parse(savedInstanceState.getString(STEP_URI));
         }
-        // If there is no saved state getArguments from CookingActivity
+        // If there is no saved state getArguments from RecipeIngredientsSteps
         else {
             showExoplayer();
 
@@ -170,18 +158,6 @@ public class ExoplayerFragment extends Fragment {
             jsonUtility = JSONUtility.createJSONUtilityInstance();
             stepPojo = jsonUtility.getStep(recipePosition, stepPosition);
 
-
-//            SharedPreferences positionSharedPreferences=this.getApplicationContext().getSharedPreferences(RECIPE_STEP_POSITION_PREFERENCE_FILE, MODE_PRIVATE);
-//        SharedPreferences.Editor editor = positionSharedPreferences.edit();
-//        editor.putInt(RECIPE_POSITION, position);
-//        editor.putInt(STEP_POSITION, 0);
-//        editor.apply();
-
-//                Intent intent = getActivity().getIntent();
-//                if(intent.hasExtra(RECIPE_POSITION)&& intent.hasExtra(STEP_POSITION)){
-//                    recipePosition=intent.getIntExtra(RECIPE_POSITION,0);
-//                    stepPosition=intent.getIntExtra(STEP_POSITION,0);
-//                }
 
                 if(stepPojo.getShortDescription().isEmpty()){
                     shortDescriptionString="";
@@ -201,13 +177,6 @@ public class ExoplayerFragment extends Fragment {
                 Timber.i("stepVideoUri= "+stepVideoUri);
 
                 exoPlayerCurrentPositionIndex=0;
-
-                //showExoplayer();
-
-
-//                // Get arguments
-//                mStep = getArguments().getParcelable(ConstantsUtil.STEP_SINGLE);
-
 
                 // If has no video
                 if (stepVideoUri.toString().equals("")){
@@ -229,11 +198,6 @@ public class ExoplayerFragment extends Fragment {
 
 
         }
-
-
-//        stepTitleTv.setText(stepPojo.getShortDescription());
-//        stepDescription.setText(stepPojo.getDescription());
-
 
         return rootView;
     }
@@ -292,9 +256,6 @@ public class ExoplayerFragment extends Fragment {
                     new DefaultLoadControl());
             exoPlayerView.setPlayer(simpleExoPlayer);
 
-            //Uri mediaUri = stepVideoUri;
-
-//            if(stepVideoUri.toString().isEmpty())
 //            Timber.i("stepVideoUri is an empty string");
 //            Timber.i("stepVideoThumbnail is an empty string");
 
@@ -319,68 +280,7 @@ public class ExoplayerFragment extends Fragment {
 
         }
 
-//        else{
-////            exoPlayerView.setVisibility(View.GONE);
-//            showPlaceholder();
-//        }
-
-//         else if (stepVideoUri.toString().isEmpty()) {
-//            exoPlayerView.setVisibility(View.GONE);
-//        }
-//         else{
-//            exoPlayerView.setPlayer(simpleExoPlayer);
-//
-//            Uri mediaUri = stepVideoUri;
-//            Timber.i("mediaUri= %s", mediaUri);
-//            DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getContext(), Util.getUserAgent(getContext(), getString(R.string.app_name)));
-//            MediaSource videoSource = new ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(mediaUri);
-//
-//            simpleExoPlayer.setPlayWhenReady(stepPlayWhenReady);
-//
-//            simpleExoPlayer.prepare(videoSource);
-//            exoPlayerView.setVisibility(View.VISIBLE);
-//            imageViewPlaceholder.setVisibility(View.INVISIBLE);
-//        }
     }
-
-
-//    public void createExoPlayer(Uri videoUri){
-//
-//        stepTitleTv.setText(shortDescriptionString);
-//        stepDescription.setText(descriptionString);
-//
-//
-//        if(simpleExoPlayer == null){
-//            Timber.i("simpleExoPlayer equals null");
-//
-//            if(getActivity()!=null){
-//                Timber.i("getActivity does not equal null");
-//            }
-//
-//            simpleExoPlayer=  ExoPlayerFactory.newSimpleInstance(getActivity(),
-//                    new DefaultTrackSelector(),
-//                    new DefaultLoadControl());
-//
-//            // Bind exoPlayer to view.
-//            exoPlayerView.setPlayer(simpleExoPlayer);
-//
-//            // Prepare the MediaSource.
-//            String userAgent = Util.getUserAgent(getActivity(), getString(R.string.app_name));
-//            MediaSource mediaSource = new ExtractorMediaSource(stepVideoUri,
-//                    new DefaultDataSourceFactory(getActivity(), userAgent),
-//                    new DefaultExtractorsFactory(),
-//                    null,
-//                    null);
-//
-//            //make sure the position is a valid time unit
-//            if (exoPlayerCurrentPositionIndex != C.TIME_UNSET) {
-//                simpleExoPlayer.seekTo(exoPlayerCurrentPositionIndex);
-//            }
-//            // Prepare the player with the source.
-//            simpleExoPlayer.prepare(mediaSource);
-//            simpleExoPlayer.setPlayWhenReady(stepPlayWhenReady);
-//        }
-//    }
 
     // Release player
     private void releasePlayer() {
@@ -451,8 +351,6 @@ public class ExoplayerFragment extends Fragment {
         outState.putInt(RECIPE_POSITION, recipePosition);
         outState.putInt(STEP_POSITION, stepPosition);
 
-//        outState.putString(STEP_URI, step.getVideoURL());
-//        outState.putParcelable(STEP_SINGLE, step);
         outState.putLong(STEP_CURRENT_VIDEO_POSITION, exoPlayerCurrentPositionIndex);
         outState.putBoolean(STEP_PLAY_WHEN_READY, stepPlayWhenReady);
     }
@@ -465,12 +363,5 @@ public class ExoplayerFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void backButtonPressed() {
-//        FragmentManager fragmentManager = getActivity()
-//                .getSupportFragmentManager();
-//        Timber.i("exoplayer backStackfragmentManger count="+fragmentManager.getBackStackEntryCount());
-//        fragmentManager.popBackStack (EXOPLAYER_FRAGMENT, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-//    }
 
 }

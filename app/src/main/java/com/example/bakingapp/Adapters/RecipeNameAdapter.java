@@ -13,63 +13,6 @@ import com.example.bakingapp.R;
 
 import java.util.ArrayList;
 
-
-//public class GridAdapter extends BaseAdapter {
-//
-//    private List<String> recipeTitles;
-//
-//    private OnRecipeTitleListener onRecipeTitleListener;
-//
-//
-//    Context mContext;
-//
-//    public interface OnRecipeTitleListener{
-//        void onRecipeTitleClick(int position);
-//    }
-//
-//
-//    public GridAdapter(Context context, List<String> recipeTitles, OnRecipeTitleListener onRecipeTitleListener) {
-//        mContext = context;
-//        this.recipeTitles = recipeTitles;
-//        this.onRecipeTitleListener = onRecipeTitleListener;
-//    }
-//
-//
-//    @Override
-//    public int getCount() {
-//        return recipeTitles.size();
-//    }
-//
-//    @Override
-//    public Object getItem(int i) {
-//        return null;
-//    }
-//
-//    @Override
-//    public long getItemId(int i) {
-//        return 0;
-//    }
-//
-//
-//    public View getView(final int position, View recipeViewDetail, ViewGroup parent) {
-//        TextView textView;
-//        if (recipeViewDetail == null) {
-//            textView = new TextView(mContext);
-//            textView.setPadding(8, 8, 8, 8);
-//        } else {
-//            textView = (TextView) recipeViewDetail;
-//        }
-//
-//        textView.setText(recipeTitles.get(position));
-//        return textView;
-//    }
-//
-//}
-
-
-
-
-
 public class RecipeNameAdapter extends RecyclerView.Adapter<RecipeNameAdapter.RecipeTitleViewHolder> {
 
     ArrayList<String> recipeList;

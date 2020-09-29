@@ -18,8 +18,6 @@ import com.example.bakingapp.R;
 import com.example.bakingapp.ViewModels.ExoplayerViewModel;
 import com.example.bakingapp.ViewModels.ExoplayerViewModelFactory;
 
-import java.util.List;
-import java.util.Timer;
 
 import timber.log.Timber;
 
@@ -148,95 +146,24 @@ public class ExoplayerActivity extends AppCompatActivity{
 //    }
 
     @Override
-    public void onBackPressed() {
-        FragmentManager fragmentManager = this.getSupportFragmentManager();
-        int fragmentStack=fragmentManager.getBackStackEntryCount();
-
-        if(fragmentStack==0){
-            super.onBackPressed();
-        }
-        else{
-            Timber.i("exoplayer backStackfragmentManger count="+fragmentManager.getBackStackEntryCount());
-            fragmentManager.popBackStack ();
-            super.onBackPressed();
-        }
+    public void onBackPressed(){
+        super.onBackPressed();
+        finish();
     }
 
-
 //    @Override
-//    public void previousButtonClicked(int currentStep){
-//        Timber.i("nextButtonClicked called currentStep= "+currentStep);
-//        SharedPreferences positionSharedPreferences=this.getApplicationContext().getSharedPreferences(RECIPE_STEP_POSITION_PREFERENCE_FILE, MODE_PRIVATE);
-//        SharedPreferences.Editor editor = positionSharedPreferences.edit();
-//        //editor.putInt(RECIPE_POSITION, 0);
-//        if(currentStep==0){
-//            editor.putInt(STEP_POSITION, currentStep);
+//    public void onBackPressed() {
+//        FragmentManager fragmentManager = this.getSupportFragmentManager();
+//        int fragmentStack=fragmentManager.getBackStackEntryCount();
+//
+//        if(fragmentStack==0){
+//            super.onBackPressed();
 //        }
 //        else{
-//            editor.putInt(STEP_POSITION, currentStep-1);
-//        }
-//
-//        editor.apply();
-//
-//        initializeExoPlayer();
-//        //initializeReplaceExoPlayer();
-//    }
-//
-//    //need to make sure doesn't go over amount of steps
-//
-//    @Override
-//    public void nextButtonClicked(int currentStep) {
-//        Timber.i("nextButtonClicked called currentStep= "+currentStep);
-//
-//        JSONUtility jsonUtility=JSONUtility.createJSONUtilityInstance();
-//        int stepSize=jsonUtility.getRecipeStepsPojo(recipePosition).size();
-//
-//        if(currentStep<stepSize-1) {
-//            Timber.i("nextButtonClicked called currentStep<stepSize-1");
-//
-//            SharedPreferences positionSharedPreferences = this.getApplicationContext().getSharedPreferences(RECIPE_STEP_POSITION_PREFERENCE_FILE, MODE_PRIVATE);
-//            SharedPreferences.Editor editor = positionSharedPreferences.edit();
-//            //editor.putInt(RECIPE_POSITION, 0);
-//            editor.putInt(STEP_POSITION, currentStep + 1);
-//            editor.apply();
-//        }
-//        //go to first step if reached end
-//        else if(currentStep==stepSize-1){
-//            Timber.i("nextButtonClicked called currentStep==stepSize-1");
-//            SharedPreferences positionSharedPreferences = this.getApplicationContext().getSharedPreferences(RECIPE_STEP_POSITION_PREFERENCE_FILE, MODE_PRIVATE);
-//            SharedPreferences.Editor editor = positionSharedPreferences.edit();
-//            //editor.putInt(RECIPE_POSITION, 0);
-//            editor.putInt(STEP_POSITION, 0);
-//            editor.apply();
-//        }
-
-//        SharedPreferences positionSharedPreferences=this.getApplicationContext().getSharedPreferences(RECIPE_STEP_POSITION_PREFERENCE_FILE, MODE_PRIVATE);
-//        SharedPreferences.Editor editor = positionSharedPreferences.edit();
-//        //editor.putInt(RECIPE_POSITION, 0);
-//        editor.putInt(STEP_POSITION, currentStep+1);
-//        editor.apply();
-
-        //initializeExoPlayer();
-        //initializeReplaceExoPlayer();
-    //}
-
-//    public void initializeReplaceExoPlayer(){
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        if(fragmentManager==null){
-//            Timber.i("initializeReplaceExoPlayer called fragmentManager equals null");
-//        }
-//        ExoplayerFragment exoplayerFragment = new ExoplayerFragment(this, this);
-//        if(fragmentManager.getBackStackEntryCount()==0) {
-//            fragmentManager.beginTransaction()
-//                    .add(R.id.frame_layout_exoPlayer, exoplayerFragment)
-//                    .addToBackStack(EXOPLAYER_FRAGMENT)
-//                    .commit();
-//        }
-//        else{
-//            fragmentManager.beginTransaction()
-//                    .replace(R.id.frame_layout_exoPlayer, exoplayerFragment)
-//                    .addToBackStack(EXOPLAYER_FRAGMENT)
-//                    .commit();
+//            Timber.i("exoplayer backStackfragmentManger count="+fragmentManager.getBackStackEntryCount());
+//            fragmentManager.popBackStack ();
+//            super.onBackPressed();
 //        }
 //    }
+
 }

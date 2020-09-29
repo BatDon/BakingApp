@@ -9,12 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.bakingapp.Pojos.IngredientPojo;
 import com.example.bakingapp.Pojos.RecipePojo;
 import com.example.bakingapp.Pojos.StepPojo;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 

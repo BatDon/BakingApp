@@ -14,7 +14,6 @@ import com.example.bakingapp.R;
 
 import java.util.ArrayList;
 
-//quantity measure ingredient
 
 public class IngredientLinearAdapter extends RecyclerView.Adapter<IngredientLinearAdapter.IngredientsViewHolder> {
 

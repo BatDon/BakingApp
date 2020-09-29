@@ -31,7 +31,6 @@ public class StepLinearAdapter extends RecyclerView.Adapter<StepLinearAdapter.St
     }
 
     public StepLinearAdapter(Context context, ArrayList<StepPojo> stepsList, OnRecipeStepListener onRecipeStepListener){
-//    public StepLinearAdapter(Context context, ArrayList<StepPojo> stepsList){
         Timber.i("StepLinearAdapter called");
         this.mContext=context;
         this.mInflater = LayoutInflater.from(context);

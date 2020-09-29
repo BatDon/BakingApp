@@ -1,11 +1,13 @@
 package com.example.bakingapp;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.test.espresso.IdlingResource;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,15 +17,14 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.BackButtonPressed;
 import com.example.bakingapp.Adapters.RecipeNameAdapter;
 import com.example.bakingapp.Adapters.StepLinearAdapter;
-import com.example.bakingapp.Fragments.ExoplayerFragment;
 import com.example.bakingapp.Fragments.MasterIngredientsStepsFragment;
 import com.example.bakingapp.Fragments.RecipeListNameFragment;
 import com.example.bakingapp.Fragments.RecipleNameGridListFragment;
 import com.example.bakingapp.Pojos.RecipePojo;
-import com.example.bakingapp.ViewModels.RecipeViewModel;
+import com.example.bakingapp.ViewModels.MainActivityViewModel;
+import com.example.bakingapp.ViewModels.MainActivityViewModelFactory;
 import com.example.bakingapp.Widget.BakingWidgetService;
 
 import java.util.List;
@@ -31,10 +32,7 @@ import java.util.List;
 import timber.log.Timber;
 
 import static com.example.bakingapp.Constants.ACTION_INTENT_OPEN_RECIPE;
-import static com.example.bakingapp.Constants.IS_TABLET;
-import static com.example.bakingapp.Constants.MASTER_INGREDIENTS_STEPS_FRAGMENT;
 import static com.example.bakingapp.Constants.RECIPE_POSITION;
-import static com.example.bakingapp.Constants.RECIPE_NAME_FRAGMENT;
 import static com.example.bakingapp.Constants.RECIPE_STEP_POSITION_PREFERENCE_FILE;
 import static com.example.bakingapp.Constants.STEP_POSITION;
 
@@ -48,12 +46,11 @@ import static com.example.bakingapp.Constants.STEP_POSITION;
 //public class MainActivity extends AppCompatActivity implements RecipeNameAdapter.OnRecipeTitleListener,
 //        StepLinearAdapter.OnRecipeStepListener, BackButtonPressed {
 public class MainActivity extends AppCompatActivity implements RecipeNameAdapter.OnRecipeTitleListener,
-        StepLinearAdapter.OnRecipeStepListener {
+        StepLinearAdapter.OnRecipeStepListener,  NetworkDelayer.NetworkCallback {
 
     public static final String TAG=MainActivity.class.getSimpleName();
 
     private MainActivityViewModel mainActivityViewModel;
-    RecipeViewModel recipeViewModel;
 
     private boolean gridViewTablet;
 
@@ -68,6 +65,9 @@ public class MainActivity extends AppCompatActivity implements RecipeNameAdapter
 
     SharedPreferences positionSharedPreferences;
     Bundle savedInstanceState;
+
+    // Idling resource only used for testing
+    @Nullable private BasicIdlingResource idlingResourceForTesting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements RecipeNameAdapter
             initializeFragments();
         }
 
+
         //setUpViewRecipeStepsViewModel();
 
 //        initializeFragments();
@@ -140,33 +141,6 @@ public class MainActivity extends AppCompatActivity implements RecipeNameAdapter
     }
 
 
-//    public void setUpViewRecipeStepsViewModel() {
-//        recipeViewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
-//
-//        Observer<Integer> recipeNameObserver = new Observer<Integer>() {
-//            int i = 0;
-//
-//            @Override
-//            public void onChanged(@Nullable final Integer recipePosition) {
-//
-//                Timber.i("viewmodel onChanged called position= %s", recipePosition);
-//                // Update the cached copy of the words in the adapter.
-////                Log.i("MainActivity", "onChanged triggered");
-////                if (i > 0) {
-////                    resultList = movies;
-////                    setUpGridAdapter();
-////                }
-////                i++;
-////                //mainViewModel.requestMovies();
-////                resultList=movies;
-////                if(mainViewModel.getAllMovies().getValue()!=null){
-////                    mainViewModel.requestMovies();
-////                }
-//            }
-//        };
-//    }
-
-
     public void initializeFragments() {
         if (findViewById(R.id.grid_fragment) != null) {
             // This LinearLayout will only initially exist in the two-pane tablet case
@@ -197,83 +171,23 @@ public class MainActivity extends AppCompatActivity implements RecipeNameAdapter
         }
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        FragmentManager fragmentManager = this.getSupportFragmentManager();
-//        int fragmentStack=fragmentManager.getBackStackEntryCount();
-//
-//        if(fragmentStack==0){
-//            super.onBackPressed();
-//        }
-//        else{
-//            Timber.i("exoplayer backStackfragmentManger count="+fragmentManager.getBackStackEntryCount());
-//            fragmentManager.popBackStack ();
-//            super.onBackPressed();
-//        }
-//
-//    }
-
-//    @Override
-//    public void backButtonPressed() {
-//        tellFragments();
-//        super.onBackPressed();
-//    }
-//
-//    private void tellFragments(){
-//        List<Fragment> fragments = getSupportFragmentManager().getFragments();
-//        for(Fragment fragment : fragments){
-//            if(fragment instanceof BackButtonPressed)
-//                ((BackButtonPressed)fragment).backButtonPressed();
-//        }
-//    }
-
-
-
-//
-//    @Override
-//    public void onRecipeSelected(){
-//        int l=2;
-//    }
-
-
-
-
-
-    //linearRecyclerView for phones
-
-//     loadingCircle=findViewById(R.id.progressBar);
-//        userRecyclerView=findViewById(R.id.recyclerView);
-//
-//        Log.i(TAG,"setUpViews called");
-//
-//        showLoading();
-//
-//
-//        LinearLayoutManager linearLayoutManager =
-//                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-//
-//        userRecyclerView.setLayoutManager(linearLayoutManager);
-//        userRecyclerView.setHasFixedSize(true);
-//
-//
-////        userFavoritesAdapter = new FavoritesAdapter(this, this);
-//        completeAdapter=new CompleteAdapter(this,this,null, LIST_RECYCLER_VIEW);
-//
-//
-////        userRecyclerView.setAdapter(userFavoritesAdapter);
-//        userRecyclerView.setAdapter(completeAdapter);
-
-
-    public void showFragment(){
-
+    //Only used for testing idling resource
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        if (idlingResourceForTesting == null) {
+            idlingResourceForTesting = new BasicIdlingResource();
+        }
+        return idlingResourceForTesting;
     }
 
-    public void showLoading(){
-
-    }
 
     @Override
     public void onRecipeTitleClick(int position) {
+
+    //for testing
+        NetworkDelayer.processMessage("testingIdling", this, idlingResourceForTesting);
+
         Toast.makeText(this, "position= "+position, Toast.LENGTH_SHORT).show();
         Timber.i("onRecipeTitleClick called");
         Timber.i("recipe position= %s", position);
@@ -282,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements RecipeNameAdapter
         editor.putInt(RECIPE_POSITION, position);
         editor.putInt(STEP_POSITION, 0);
         editor.apply();
-        //recipeViewModel.setRecipeNumberLiveData(position);
+
 
 
         //Updating widget
@@ -298,44 +212,6 @@ public class MainActivity extends AppCompatActivity implements RecipeNameAdapter
         intent.putExtra(RECIPE_POSITION, position);
         startActivity(intent);
 
-
-//        SharedPreferences positionSharedPreferences=this.getApplicationContext().getSharedPreferences(RECIPE_STEP_POSITION_PREFERENCE_FILE, MODE_PRIVATE);
-//        SharedPreferences.Editor editor = positionSharedPreferences.edit();
-//        editor.putInt(RECIPE_POSITION, position);
-//        editor.putInt(STEP_POSITION, 0);
-//        editor.apply();
-
-
-//        Bundle recipeBundle = new Bundle();
-//        recipeBundle.putInt(RECIPE_POSITION, position);
-//        recipeBundle.putBoolean(IS_TABLET, gridViewTablet);
-//
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//
-//        masterIngredientsStepsFragment = new MasterIngredientsStepsFragment();
-//        masterIngredientsStepsFragment.setArguments(recipeBundle);
-        // Add the fragment to its container using a transaction
-//        fragmentManager.beginTransaction()
-//                .replace(R.id.list_fragment, masterIngredientsStepsFragment)
-//                .commit();
-//        fragmentManager.beginTransaction()
-//                .replace(R.id.list_fragment, masterIngredientsStepsFragment)
-//                .addToBackStack(MASTER_INGREDIENTS_STEPS_FRAGMENT)
-//                .commit();
-
-
-
-
-
-//        Bundle exoPlayerBundle = new Bundle();
-//        exoPlayerBundle.putInt(RECIPE_POSITION, position);
-//        exoPlayerBundle.putInt(STEP_POSITION, 0);
-//
-//        exoplayerFragment = new ExoplayerFragment();
-//        exoplayerFragment.setArguments(exoPlayerBundle);
-//
-//        fragmentManager.beginTransaction()
-//                .add(fragment_ingredient_step_)
     }
 
     @Override
@@ -344,93 +220,23 @@ public class MainActivity extends AppCompatActivity implements RecipeNameAdapter
     }
 
 
+    //Testing to make sure list_fragment is shown
+    @Override
+    public void finished(String text) {
+        Toast.makeText(this, "finished callback called", Toast.LENGTH_SHORT).show();
+
+
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//
+//        recipeListNameFragment = new RecipeListNameFragment();
+//        // Add the fragment to its container using a transaction
+//        fragmentManager.beginTransaction()
+//                .add(R.id.list_fragment, recipeListNameFragment)
+//                //.addToBackStack(RECIPE_NAME_FRAGMENT)
+//                .commit();
+    }
 }
 
-//    @Override
-//    public void onRetrofitFinished(List<RecipePojo> recipes) {
-//        Toast.makeText(this, "recipesSize= "+recipes.size(), Toast.LENGTH_SHORT).show();
-//    }
 
-
-//      Grid RecyclerView tablet
-
-//       public void setUpGridAdapter(){
-//        gridRecyclerView.setHasFixedSize(true);
-//        int numberOfColumns = 2;
-//
-//        GridLayoutManager gridLayoutManager=new GridLayoutManager(this, numberOfColumns, RecyclerView.VERTICAL,false);
-//        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-//            @Override
-//            public int getSpanSize(int position) {
-//                return 1;
-//            }
-//        });
-//        gridRecyclerView.setLayoutManager(gridLayoutManager);
-//        Result[] resultArray=new Result[resultList.size()];
-//        resultList.toArray(resultArray);
-//        if(resultArray.length==0){
-//            Log.i(TAG,"no results found");
-//        }
-//        else{
-//            Log.i(TAG,"resultArray length= "+resultArray.length+"");
-//        }
-//        Log.i(TAG,Integer.toString(resultArray.length));
-//        gridAdapter = new GridAdapter(this, resultArray, this);
-//        //completeAdapter = new CompleteAdapter(this, this, resultArray, GRID_RECYCLER_VIEW);
-//        gridRecyclerView.setAdapter(gridAdapter);
-////        gridRecyclerView.setAdapter(completeAdapter);
-//
-//        progressBar.setVisibility(View.INVISIBLE);
-//        gridRecyclerView.setVisibility(View.VISIBLE);
-//
-//        if(resultArray.length>0) {
-//            ArrayList<Result> movieArrayList = new ArrayList<Result>(Arrays.asList(resultArray));
-//
-//            mainActivityViewModel.writeToFile(movieArrayList, this);
-//        }
-//
-//        Log.i(TAG,"end of setUpAdapter");
-//    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-//        try {
-//            String result = "{\"someKey\":\"someValue\"}";
-//            String jsonString = "{\"someKey\":\"\"}";
-//            JSONObject jObject = new JSONObject(jsonString);
-//            String objectString=jObject.getString("someKey");
-////            String objectAsString=object.toString();
-//            Log.i(TAG,"objectString= "+objectString);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-
-//        JSON.parse("");
-
-
-
-//    }
-
-//    public void requestData(View v){
-//        RetrofitRequester retrofitRequester=new RetrofitRequester();
-//        retrofitRequester.requestRecipes(this);
-//    }
-
-//    @Override
-//    public void onRetrofitFinished(List<RecipesPojo> recipes) {
-//        Log.i(TAG, "onRetrofitFinished");
-//        Toast.makeText(this, recipes.size()+" recipes", Toast.LENGTH_SHORT).show();
-////        recipes.size();
-//    }
 
 

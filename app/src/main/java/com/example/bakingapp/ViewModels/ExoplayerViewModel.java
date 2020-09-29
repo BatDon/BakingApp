@@ -33,20 +33,7 @@ public class ExoplayerViewModel extends AndroidViewModel {
         stepNumber=0;
 
         stepNumberLiveData.setValue(0);
-//        stepNumber=0;
-//        stepNumberLiveData.setValue(0);
 
-//        if(stepNumberLiveData==null){
-//            stepNumberLiveData=new MutableLiveData<Integer>();
-//            stepNumberLiveData.setValue(0);
-//        }
-//        stepNumberLiveData.setValue(0);
-
-    }
-
-    public void refreshStepNumber(){
-        setStepNumber(stepNumber);
-        getStepNumber();
     }
 
     public MutableLiveData<Integer> getStepNumber() {
@@ -63,11 +50,8 @@ public class ExoplayerViewModel extends AndroidViewModel {
             stepNumberLiveData.setValue(0);
         }
         Timber.i("setStepNumber called");
-//        this.stepNumber=stepNumber;
         this.stepNumberLiveData.setValue(stepNumber);
-//        this.stepNumberLiveData=new MutableLiveData<Integer>(stepNumber);
         Timber.i("setStepNumber called stepNumberLiveData= "+this.stepNumberLiveData.getValue().toString());
-//        .postValue(stepNumber);
     }
 
     public void setRecipeNumber(int recipeNumber){
@@ -104,11 +88,7 @@ public class ExoplayerViewModel extends AndroidViewModel {
 
         if(stepNumber<stepSize-1) {
             Timber.i("nextButtonClicked called currentStep<stepSize-1");
-            
 
-//            SharedPreferences positionSharedPreferences = getApplication().getSharedPreferences(RECIPE_STEP_POSITION_PREFERENCE_FILE, MODE_PRIVATE);
-//            SharedPreferences.Editor editor = positionSharedPreferences.edit();
-            //editor.putInt(RECIPE_POSITION, 0);
             editor.putInt(STEP_POSITION, stepNumber + 1);
             editor.apply();
             setStepNumber(stepNumber+1);
@@ -116,9 +96,6 @@ public class ExoplayerViewModel extends AndroidViewModel {
         //go to first step if reached end
         else if(stepSize==stepSize-1){
             Timber.i("nextButtonClicked called currentStep==stepSize-1");
-//            SharedPreferences positionSharedPreferences = context.getSharedPreferences(RECIPE_STEP_POSITION_PREFERENCE_FILE, MODE_PRIVATE);
-//            SharedPreferences.Editor editor = positionSharedPreferences.edit();
-            //editor.putInt(RECIPE_POSITION, 0);
             editor.putInt(STEP_POSITION, 0);
             editor.apply();
             setStepNumber(0);

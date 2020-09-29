@@ -33,11 +33,6 @@ import static com.example.bakingapp.Constants.RECIPE_PREFERENCE_FILE;
 
 public class MasterIngredientsStepsFragment extends Fragment implements BackButtonPressed {
 
-        // Inflates the GridView of all AndroidMe images
-
-        // Define a new interface OnImageClickListener that triggers a callback in the host activity
-        //com.example.bakingapp.Fragments.RecipleNameGridListFragment.OnRecipeTitleListener recipeCallback;
-
         View ingredientsStepsView;
         RecyclerView ingredientsLinearRecyclerView;
         RecyclerView stepsLinearRecyclerView;
@@ -147,21 +142,10 @@ public class MasterIngredientsStepsFragment extends Fragment implements BackButt
         public void setUpStepsAdapter(int position) {
             stepsLinearRecyclerView.setHasFixedSize(true);
 
-
-
-//            LinearLayoutManager llm= new LinearLayoutManager(getActivity());
-//            llm.setOrientation(LinearLayoutManager.VERTICAL);
-//            stepsLinearRecyclerView.setLayoutManager(llm);
-//            stepsLinearRecyclerView.setAdapter( ingredientLinearAdapter );
-
-
             LinearLayoutManager stepsLinearLayoutManager =
                     new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-//            LinearLayoutManager stepsLinearLayoutManager =
-//                    new LinearLayoutManager(stepsLinearRecyclerView.getContext(), LinearLayoutManager.VERTICAL, false);
 
             stepsLinearRecyclerView.setLayoutManager(stepsLinearLayoutManager);
-            //recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
             ArrayList<StepPojo> stepPojoArrayList= JSONUtility.createJSONUtilityInstance().getRecipeStepsPojo(position);
 
@@ -172,7 +156,6 @@ public class MasterIngredientsStepsFragment extends Fragment implements BackButt
             Timber.i(stepPojoArrayList.get(2).getDescription());
 
             stepLinearAdapter=new StepLinearAdapter(getActivity(), stepPojoArrayList, stepCallback);
-//            stepLinearAdapter=new StepLinearAdapter(getActivity(), stepPojoArrayList);
 
             stepsLinearRecyclerView.setAdapter(stepLinearAdapter);
             Timber.i("setUpStepsAdapter finished");
@@ -185,18 +168,5 @@ public class MasterIngredientsStepsFragment extends Fragment implements BackButt
                     .getSupportFragmentManager();
             fragmentManager.popBackStack (MASTER_INGREDIENTS_STEPS_FRAGMENT, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
-
-
-
-
-
-
-//        @Override
-//        public void onRecipeTitleClick(int position){
-//            Toast.makeText(getActivity(), "position= "+position, Toast.LENGTH_SHORT).show();
-////        Intent detailIntent=new Intent(this, MovieDetails.class);
-////        detailIntent.putExtra(MOVIE_POSITION, position);
-////        startActivity(detailIntent);
-//        }
 
 }

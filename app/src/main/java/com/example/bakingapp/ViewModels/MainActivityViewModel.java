@@ -1,4 +1,4 @@
-package com.example.bakingapp;
+package com.example.bakingapp.ViewModels;
 
 import android.app.Application;
 import android.util.Log;
@@ -17,7 +17,7 @@ public class MainActivityViewModel extends AndroidViewModel implements
         RetrofitRequester.OnRetrofitListener{
 
     public MutableLiveData<List<RecipePojo>> liveDataRecipeList=new MutableLiveData<List<RecipePojo>>(){};
-    List<RecipePojo> recipesPojoList;
+    public List<RecipePojo> recipesPojoList;
     Application application;
 
     public static final String TAG=MainActivityViewModel.class.getSimpleName();
@@ -59,40 +59,3 @@ public class MainActivityViewModel extends AndroidViewModel implements
 
 }
 
-//public class MainActivityViewModel extends AndroidViewModel implements
-//        RetrofitRequester.OnRetrofitListener{
-//
-//    List<RecipePojo> recipesPojoList;
-//    Application application;
-//
-//    public static final String TAG=MainActivityViewModel.class.getSimpleName();
-//
-//    public MainActivityViewModel(@NonNull RecipeRepository recipeRepository,Application application) {
-//        super(application);
-//        this.application=application;
-//        requestData();
-//    }
-//
-//    public void requestData(){
-//        RetrofitRequester retrofitRequester=new RetrofitRequester();
-//        retrofitRequester.requestRecipes(this);
-//    }
-//
-//    @Override
-//    public void onRetrofitFinished(List<RecipePojo> recipes) {
-//        Log.i(TAG, "onRetrofitFinished");
-//
-//        recipesPojoList=recipes;
-//        RecipeRepository recipeRepository= RecipeRepository.getInstance(application);
-//        recipeRepository.getAllRecipes();
-////        Toast.makeText(this, recipes.size()+" recipes", Toast.LENGTH_SHORT).show();
-////        recipes.size();
-//    }
-//
-//    public List<RecipePojo> getAllRecipes(){
-//        return recipesPojoList;
-//    }
-//
-//
-//
-//}

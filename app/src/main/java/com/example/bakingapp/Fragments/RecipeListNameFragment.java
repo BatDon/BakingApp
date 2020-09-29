@@ -26,11 +26,8 @@ import static com.example.bakingapp.Constants.RECIPE_LIST_NAME_FRAGMENT;
 
 
 //public class RecipeListNameFragment extends Fragment implements BackButtonPressed {
-public class RecipeListNameFragment extends Fragment{
+public class RecipeListNameFragment extends Fragment {
 
-    // Inflates the GridView of all AndroidMe images
-
-    // Define a new interface OnImageClickListener that triggers a callback in the host activity
     RecipeNameAdapter.OnRecipeTitleListener recipeCallback;
 
     RecyclerView listRecyclerView;
@@ -39,12 +36,6 @@ public class RecipeListNameFragment extends Fragment{
         Timber.i("RecipeListNameFragment constructor called");
 
     }
-
-    // OnImageClickListener interface, calls a method in the host activity named onImageSelected
-//    public interface OnRecipeTitleListener{
-//        void onRecipeTitleClick(int position);
-//    }
-
 
     @Override
     public void onAttach(Context context) {
@@ -63,26 +54,8 @@ public class RecipeListNameFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //rootview is grid recyclerview
-        //View rootView = inflater.inflate(R.layout.recipe_grid_item, container, false);
-
         listRecyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_recipe_grid_list, container, false);
         setUpGridAdapter();
-
-        //gridview is each individual box of data in grid recyclerview list
-        // Get a reference to the GridView in the fragment_master_list xml layout file
-        TextView recipeTitleTV = listRecyclerView.findViewById(R.id.recipe_grid_item);
-
-//        gridRecyclerView.setHasFixedSize(true);
-//        int numberOfColumns = 3;
-//
-//        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), numberOfColumns, RecyclerView.VERTICAL, false);
-//        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-//            @Override
-//            public int getSpanSize(int position) {
-//                return 1;
-//            }
-//        });
 
         return listRecyclerView;
     }
@@ -105,58 +78,5 @@ public class RecipeListNameFragment extends Fragment{
             getActivity().findViewById(R.id.list_fragment).setVisibility(View.VISIBLE);
         }
     }
-
-//        @Override
-//        public void backButtonPressed() {
-//            FragmentManager fragmentManager = getActivity()
-//                    .getSupportFragmentManager();
-//            Timber.i("recipeListNameFragment backStackfragmentManger count="+fragmentManager.getBackStackEntryCount());
-//            fragmentManager.popBackStack (RECIPE_LIST_NAME_FRAGMENT, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-//        }
-
-
-//        Result[] resultArray = new Result[resultList.size()];
-//        resultList.toArray(resultArray);
-//        if (resultArray.length == 0) {
-//            Log.i(TAG, "no results found");
-//        } else {
-//            Log.i(TAG, "resultArray length= " + resultArray.length + "");
-//        }
-//        Log.i(TAG, Integer.toString(resultArray.length));
-//        gridAdapter = new GridAdapter(this, resultArray, this);
-//        //completeAdapter = new CompleteAdapter(this, this, resultArray, GRID_RECYCLER_VIEW);
-//        gridRecyclerView.setAdapter(gridAdapter);
-////        gridRecyclerView.setAdapter(completeAdapter);
-//
-//        progressBar.setVisibility(View.INVISIBLE);
-//        gridRecyclerView.setVisibility(View.VISIBLE);
-    }
-
-//    @Override
-//    public void onRecipeTitleClick(int position){
-//        Toast.makeText(getActivity(), "position= "+position, Toast.LENGTH_SHORT).show();
-////        Intent detailIntent=new Intent(this, MovieDetails.class);
-////        detailIntent.putExtra(MOVIE_POSITION, position);
-////        startActivity(detailIntent);
-//    }
-
-
-//        gridRecyclerView.setLayoutManager(gridLayoutManager);
-//        Result[] resultArray = new Result[resultList.size()];
-//        resultList.toArray(resultArray);
-//        if (resultArray.length == 0) {
-//            Log.i(TAG, "no results found");
-//        } else {
-//            Log.i(TAG, "resultArray length= " + resultArray.length + "");
-//        }
-//        Log.i(TAG, Integer.toString(resultArray.length));
-//        gridAdapter = new GridAdapter(this, resultArray, this);
-//        //completeAdapter = new CompleteAdapter(this, this, resultArray, GRID_RECYCLER_VIEW);
-//        gridRecyclerView.setAdapter(gridAdapter);
-////        gridRecyclerView.setAdapter(completeAdapter);
-//
-//        progressBar.setVisibility(View.INVISIBLE);
-//        gridRecyclerView.setVisibility(View.VISIBLE);
-//    }
-//}
+}
 

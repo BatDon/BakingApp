@@ -22,9 +22,7 @@ public class RetrofitClient {
         if (retrofit == null) {
             retrofit = new retrofit2.Retrofit.Builder()
                     .baseUrl(Constants.BASE_URL)
-                 //       .addConverterFactory(gsonConverterFactory);
                     .addConverterFactory(gsonConverterFactory)
-//                    .addConverterFactory(GsonConverterFactory.create())
                     .client(loggingInterceptor)
                     .build();
         }
