@@ -18,3 +18,7 @@ screen sizes.
 - Gson
 - Material Design
 - Espresso libraries
+
+![](app/src/main/java/com/example/bakingapp/ScreenshotsForGithub/cellphone_portrait_recipes.png) | ![](app/src/main/java/com/example/bakingapp/ScreenshotsForGithub/cellphone_portrait_ingredients.png) | ![](app/src/main/java/com/example/bakingapp/ScreenshotsForGithub/cellphone_portrait_exoplayer.png) 
+
+![](app/src/main/java/com/example/bakingapp/ScreenshotsForGithub/tablet_landscape_recipes.png) | ![](app/src/main/java/com/example/bakingapp/ScreenshotsForGithub/tablet_landscape_ingredients_exoplayer.png)
