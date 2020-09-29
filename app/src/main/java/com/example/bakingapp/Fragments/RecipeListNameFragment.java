@@ -5,14 +5,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.BackButtonPressed;
 import com.example.bakingapp.Adapters.RecipeNameAdapter;
 import com.example.bakingapp.JSONUtility;
 import com.example.bakingapp.R;
@@ -20,9 +17,6 @@ import com.example.bakingapp.R;
 import java.util.ArrayList;
 
 import timber.log.Timber;
-
-import static com.example.bakingapp.Constants.MASTER_INGREDIENTS_STEPS_FRAGMENT;
-import static com.example.bakingapp.Constants.RECIPE_LIST_NAME_FRAGMENT;
 
 
 //public class RecipeListNameFragment extends Fragment implements BackButtonPressed {

@@ -2,7 +2,6 @@ package com.example.bakingapp;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -10,26 +9,18 @@ import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.example.BackButtonPressed;
 import com.example.bakingapp.Adapters.StepLinearAdapter;
 import com.example.bakingapp.Fragments.ExoplayerFragment;
 import com.example.bakingapp.Fragments.MasterIngredientsStepsFragment;
 import com.example.bakingapp.ViewModels.ExoplayerViewModel;
 import com.example.bakingapp.ViewModels.ExoplayerViewModelFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import timber.log.Timber;
 
 import static com.example.bakingapp.Constants.EXOPLAYER_FRAGMENT;
-import static com.example.bakingapp.Constants.EXOPLAYER_FRAGMENT_STACK_COUNT;
 import static com.example.bakingapp.Constants.IS_TABLET;
-import static com.example.bakingapp.Constants.MASTER_INGREDIENTS_STEPS_FRAGMENT;
-import static com.example.bakingapp.Constants.RECIPE_NAME_FRAGMENT;
 import static com.example.bakingapp.Constants.RECIPE_POSITION;
 import static com.example.bakingapp.Constants.RECIPE_STEP_POSITION_PREFERENCE_FILE;
 import static com.example.bakingapp.Constants.STEP_POSITION;

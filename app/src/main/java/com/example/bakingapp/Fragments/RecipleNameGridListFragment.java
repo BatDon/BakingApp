@@ -5,22 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.BackButtonPressed;
 import com.example.bakingapp.Adapters.RecipeNameAdapter;
 import com.example.bakingapp.JSONUtility;
 import com.example.bakingapp.R;
 
 import java.util.ArrayList;
-
-import static com.example.bakingapp.Constants.MASTER_INGREDIENTS_STEPS_FRAGMENT;
-import static com.example.bakingapp.Constants.RECIPE_NAME_GRID_LIST_FRAGMENT;
 
 //public class RecipleNameGridListFragment extends Fragment implements BackButtonPressed {
 public class RecipleNameGridListFragment extends Fragment{
